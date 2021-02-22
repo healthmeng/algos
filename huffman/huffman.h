@@ -19,3 +19,4 @@ void CreateCodes(HFTree* arr,int num, char s[CHARS][CHARS]);
 int FindCode(HFTree* tree, int num, const char* str);
 void TestDecode(HFTree* tree, int num);
 #endif
+
