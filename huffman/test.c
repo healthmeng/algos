@@ -15,9 +15,18 @@ int main(int c ,char **v){
 	}
 	else if(c>1){
 		BITS* cur=AddString(root,v[1]);
+		int i;
 		PrtBits(root);
-		AddString(cur,v[1]);
+		for(i=0;i<10;i++)
+		cur=AddString(cur,v[1]);
+		unsigned int bit;
 		PrtBits(root);
+		for(cur=root;cur!=NULL;){
+			cur=GetBit(cur,&bit);
+			if(cur)
+				printf("%d",bit);
+		}
+		printf("\n");
 	}
 
 	return 0;

@@ -2,7 +2,7 @@
 #define __BITS_H__
 #include <stdio.h>
 
-#define CACHE_SIZE 1 
+#define CACHE_SIZE 2
 
 typedef struct _BITS{
 	unsigned char chData[CACHE_SIZE];
@@ -15,6 +15,7 @@ BITS* AddTail(BITS* store, unsigned long long add, int count);
 BITS* AddString(BITS* store, const char* bincode);
 BITS* PushBit(BITS* store,int bitdata);
 BITS* WriteFile(FILE *fp, int flushlast,int needfree);
+BITS* GetBit(BITS* cur,unsigned int* bit);
 
 void PrtBits(BITS* start);
 

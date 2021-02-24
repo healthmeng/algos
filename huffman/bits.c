@@ -64,3 +64,16 @@ void PrtBits(BITS* start){
 	}
 }
 
+BITS* GetBit(BITS* cur,unsigned int* bit){
+	int start;
+	if(cur->nBits==0){
+		cur=cur->pNext;
+		if(cur==NULL || cur->nBits<1)
+			return NULL;
+	}
+	start=(cur->nBits-1)/8;
+	*bit=cur->chData[start]>>7;
+	cur->chData[start]<<=1;
+	cur->nBits--;
+	return cur;
+}
