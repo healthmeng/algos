@@ -2,12 +2,12 @@
 #define __HUFFMAN_H__
 
 #define SWAP(m1,m2) do{m1^=m2;m2^=m1;m1^=m2;}while(0)
-#define CHARS 5
+#define CHARS 256 
 
 typedef struct _HFTree{
-	int data;
+//	unsigned char data;
 	int weight;
-	int lchild,rchild,parent;
+	short int lchild,rchild,parent;
 }HFNode,HFTree;
 
 HFTree* InitTree(int num);

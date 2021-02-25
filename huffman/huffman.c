@@ -59,7 +59,7 @@ void CreateTree(HFTree* arr, int num)
 
 HFTree* InitTree(int num)
 {
-	HFTree* root=(HFTree*)malloc(sizeof(HFNode)*(num*2-1));
+	HFTree* root=(HFTree*)malloc(sizeof(HFNode)*(num));
 	int i;
 	for(i=0;i<num;i++)
 	{
@@ -79,8 +79,12 @@ void GetData(HFTree* tree){
 	}*/
 	for(i=0;i<CHARS;i++)
 	{
-		tree[i].data='A'+i;
-		tree[i].weight=i*10+1;
+	//	tree[i].data=i;
+		tree[i].weight=rand()%100;
+	}
+	for(i=CHARS-1;i>CHARS-10;i--)
+	{
+		tree[i].weight=rand()%10000;
 	}
 }
 
@@ -108,7 +112,7 @@ void PrtCodes(HFTree* tree,char codes[CHARS][CHARS],int num)
 {
 	int i;
 	for(i=0;i<num;i++)
-			printf("%c->%s\n",tree[i].data,codes[i]);
+			printf("%c:%d->%s\n",i,tree[i].weight,codes[i]);
 }
 
 int FindCode(HFTree* tree,int num,const char* s){
@@ -129,7 +133,7 @@ int FindCode(HFTree* tree,int num,const char* s){
 		else i=tree[i].rchild;
 		bit++;
 	}while(s[bit]!='\0');
-	if(tree[i].lchild==-1) return tree[i].data;
+	if(tree[i].lchild==-1) return i;
 	else return 0;
 }
 
