@@ -2,7 +2,7 @@
 #define __BITS_H__
 #include <stdio.h>
 
-#define CACHE_SIZE 2
+#define CACHE_SIZE 4096
 
 typedef struct _BITS{
 	unsigned char chData[CACHE_SIZE];

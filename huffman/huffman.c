@@ -4,7 +4,6 @@
 
 #include "huffman.h"
 
-
 void SelectNode(HFTree* arr, int num)
 {
 	int i;
@@ -69,23 +68,26 @@ HFTree* InitTree(int num)
 	return root;
 }
 
-void GetData(HFTree* tree){
+int GenData(HFTree* tree){
+	long long dt[256];
 	int i;
-/*	for(i=0;i<CHARS;i++){
-			printf("ascii:");
-			scanf("%c",&tree[i].data);
-			printf("times:");
-			scanf("%d",&tree[i].weight);
-	}*/
 	for(i=0;i<CHARS;i++)
 	{
-	//	tree[i].data=i;
-		tree[i].weight=rand()%100;
+		dt[i]=rand()%10;
 	}
-	for(i=CHARS-1;i>CHARS-10;i--)
-	{
-		tree[i].weight=rand()%10000;
+	return SetData(tree,dt);
+}
+
+// return real number of nodes(occur times not 0)
+int SetData(HFTree* tree,long long *data){
+	int i,j;
+	for(i=0,j=0;i<CHARS;i++){
+		if(data[i]){
+			tree[j].data=i;
+			tree[j++].weight=data[i];
+		}
 	}
+	return j;
 }
 
 void CreateCodes(HFTree* tree, int num, char codes[CHARS][CHARS])
@@ -104,7 +106,7 @@ void CreateCodes(HFTree* tree, int num, char codes[CHARS][CHARS])
 				temp[start-1]='1';
 			start--;
 		}
-		strcpy(codes[i],temp+start);
+		strcpy(codes[tree[i].data] ,temp+start);
 	}
 }
 
@@ -133,8 +135,8 @@ int FindCode(HFTree* tree,int num,const char* s){
 		else i=tree[i].rchild;
 		bit++;
 	}while(s[bit]!='\0');
-	if(tree[i].lchild==-1) return i;
-	else return 0;
+	if(tree[i].lchild==-1) return tree[i].data;
+	else return -1;
 }
 
 void TestDecode(HFTree* tree, int num)
@@ -144,7 +146,7 @@ void TestDecode(HFTree* tree, int num)
 	printf("Input decoded string:");
 	scanf("%s",s);
 	ascii=FindCode(tree,num,s);
-	if(ascii){
+	if(ascii>=0){
 		printf("Find origin char: %c\n",ascii);
 	}else{
 		printf("Invalid decoded string!\n");
@@ -157,7 +159,7 @@ int main()
 	int i;
 	char codes[CHARS][CHARS];
 	HFTree* arr=InitTree(num*2-1);
-	GetData(arr);
+	num=GenData(arr);
 	CreateTree(arr,num);
 	CreateCodes(arr,num,codes);
 	PrtCodes(arr,codes,num);

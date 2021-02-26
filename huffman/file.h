@@ -3,18 +3,21 @@
 #include "huffman.h"
 
 typedef struct _SPNODE{
+	unsigned char data;
 	short int parent,lchild,rchild;
-}__attribute__((packed)) SPNODE;
+}__attribute__((packed,aligned(1))) SPNODE;
 
 typedef struct _HFHEADER{
+	char magic[4];
 	short int treenum; 
-	SPNODE hftree[CHARS*2-1];
 	unsigned long long fsize;
-}__attribute__((packed)) FileHeader;
+	SPNODE hftree[CHARS*2-1];
+}__attribute__((packed,aligned(1))) FileHeader;
 
-int CompressFile(const char* src,const char* dst);
-void WriteFileHeader(FILE *fp,HFTree* root, FileHeader* h);
-void WriteCompressFile(FILE* dst, FILE* src, const FileHeader* header);
+long long CompressFile(const char* src,const char* dst);
+void WriteFileHeader(FILE *fp,HFTree* root, int num);
+long long WriteCompressFile(FILE* dst, FILE* src, char codes[CHARS][CHARS]);
 int DecompressFile(const char* src, const char* dst);
+HFTree* CreateHFFromFile(FILE* fp,int *num);
 
 #endif
